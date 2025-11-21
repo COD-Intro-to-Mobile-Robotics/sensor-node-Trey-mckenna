@@ -10,12 +10,6 @@ from hat_library import *
 
 import RPi.GPIO as GPIO
 
-# include_path = '/home/rpi/git/sensor-node-trey-mckenna/src/include'
-# import sys
-# sys.path.append(include_path)
-
-# import hat_library as hatLib
-# import RPi.GPIO as GPIO
 
 class SensorNode(Node):   # Create a new class called MinimalPublisher that inherits variables & functions from Node
 
@@ -28,6 +22,7 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
         publish_rate = self.get_parameter('publish_rate').value            # Reads the publish rate value and assigns to a variable
 
         self.timer = self.create_timer(publish_rate, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
+
 
     def timer_callback(self):
         sensor_param = self.get_parameter('sensor_input').value
@@ -67,23 +62,7 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
             self.get_logger().info('invalid parameter recieved')
 
 
-        # ir1Value = get_ir_state(IR1_INPUT_PIN)
-        # if(ir1Value == LIGHT):
-        #     msg = String()                                          # Create a new String message
-        #     msg.data = LIGHT                                        # Assign text to msg.data
-        #     self.publisher_.publish(msg)                            # Publish the message to the topic
-        #     self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging  
-        # elif(ir1Value == DARK):
-        #     msg = String()
-        #     msg.data = DARK                                     # Assign text to msg.data
-        #     self.publisher_.publish(msg)                            # Publish the message to the topic
-        #     self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging    
-        # elif(ir1Value == INVALID):
-        #     msg.data = str(ir1Value)
-        #     self.get_logger().info('Invalid input recieved, not publishing irvalue: "{msg.data}"')   # Log the published message for debugging                       
-
-
-
+            
 def main(args=None):
     print ("Beginning to talk...")          # Print a starting message
     rclpy.init(args=args)                   # Initialize the ROS 2 Python client library
