@@ -2,12 +2,20 @@ import rclpy                    # import the ROS Client Library for Python (RCLP
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
 from std_msgs.msg import String # from standard messages, import the String message
 
-import os
-include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
-import sys
-sys.path.append(include_dir)
-from hat_library import *
+# import os
+# include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
+# import sys
+# sys.path.append(include_dir)
+# from hat_library import *
 
+# import RPi.GPIO as GPIO
+
+include_path = '/home/rpi/git/sensor-node-Trey-mckenna/src/include'
+import sys
+sys.path.append(include_path)
+
+import hat_library
+from hat_library import *
 import RPi.GPIO as GPIO
 
 
@@ -16,7 +24,7 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
     def __init__(self):
         super().__init__('sensor_node')                               # Initialize the Node with the name 'minimal_publisher'
         self.publisher_ = self.create_publisher(String, 'sensor_data', 10)     # Create a publisher for String type messages on the topic 'my_topic'
-        self.declare_parameter('sensor_input', 1)                           # Creates a parameter for sensor_input
+        self.declare_parameter('sensor_data', 1)                           # Creates a parameter for sensor_input
         self.declare_parameter('publish_rate', 1)                          # Creates a parameter for publish_rate
 
         publish_rate = self.get_parameter('publish_rate').value            # Reads the publish rate value and assigns to a variable
@@ -25,7 +33,7 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
 
 
     def timer_callback(self):
-        sensor_param = self.get_parameter('sensor_input').value
+        sensor_param = self.get_parameter('sensor_data').value
 
         if sensor_param == 1:
             ir1Value = get_ir_state(IR1_INPUT_PIN)

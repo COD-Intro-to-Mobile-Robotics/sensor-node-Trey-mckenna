@@ -22,7 +22,8 @@ setup(
         'console_scripts': [
                 'talker = py_pubsub.publisher:main',
                 'listener = py_pubsub.subscriber:main',
-		'sensor_1 = py_pubsub.sensor_publisher:main',
+		        'sensor_node = py_pubsub.sensor_publisher:main',
+                'sensor_listener = py_pubsub.sensor_subscriber:main',
 
         ],
 },
