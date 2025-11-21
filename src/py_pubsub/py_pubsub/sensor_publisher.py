@@ -23,7 +23,7 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
 
     def __init__(self):
         super().__init__('sensor_node')                               # Initialize the Node with the name 'minimal_publisher'
-        self.publisher_ = self.create_publisher(String, 'sensor_data', 10)     # Create a publisher for String type messages on the topic 'my_topic'
+        self.publisher_ = self.create_publisher(String, 'ir_data', 10)     # Create a publisher for String type messages on the topic 'my_topic'
         self.declare_parameter('sensor_data', 0)                           # Creates a parameter for sensor_input
         self.declare_parameter('publish_rate', 1)                          # Creates a parameter for publish_rate
 

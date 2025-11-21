@@ -9,7 +9,7 @@ class SensorSubscriber(Node):  # Create a new class called MinimalSubscriber tha
         super().__init__('sensor_subscriber')          # Initialize the Node with the name 'minimal_subscriber'
         self.subscription = self.create_subscription(   # Create a subscription to receive messages
             String,                                     # The message type to subscribe to
-            'sensor_data',                                 # The name of the topic to subscribe to
+            'ir_data',                                 # The name of the topic to subscribe to
             self.listener_callback,                     # Callback function to handle incoming messages
             10)                                         # Queue size for incoming messages
         self.subscription                               # Prevent an 'unused variable' warning by referencing the subscription
