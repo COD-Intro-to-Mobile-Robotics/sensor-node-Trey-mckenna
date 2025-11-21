@@ -22,7 +22,6 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
     def __init__(self):
         super().__init__('sensor_node')                               # Initialize the Node with the name 'minimal_publisher'
         self.publisher_ = self.create_publisher(String, 'sensor_data', 10)     # Create a publisher for String type messages on the topic 'my_topic'
-        ir_value = ''
         self.declare_parameter('sensor_input', 1)                           # Creates a parameter for sensor_input
         self.declare_parameter('publish_rate', 1)                          # Creates a parameter for publish_rate
 
@@ -31,21 +30,18 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
         self.timer = self.create_timer(publish_rate, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
 
     def timer_callback(self):
-
-
-# Create if statement which reads the sensor_input parameter and if it is 1 read IR1, if 2 read IR2, else send response
-        sensor_param = self.get_parameter('sensor_input').get_parameter_value().string_value
+        sensor_param = self.get_parameter('sensor_input').value
 
         if sensor_param == 1:
             ir1Value = get_ir_state(IR1_INPUT_PIN)
             if(ir1Value == LIGHT):
                 msg = String()                                          # Create a new String message
-                msg.data = LIGHT                                        # Assign text to msg.data
+                msg.data = 'LIGHT'                                        # Assign text to msg.data
                 self.publisher_.publish(msg)                            # Publish the message to the topic
                 self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging  
             elif(ir1Value == DARK):
                 msg = String()
-                msg.data = DARK                                     # Assign text to msg.data
+                msg.data = 'DARK'                                     # Assign text to msg.data
                 self.publisher_.publish(msg)                            # Publish the message to the topic
                 self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging    
             elif(ir1Value == INVALID):
@@ -55,12 +51,12 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
             ir2Value = get_ir_state(IR2_INPUT_PIN)
             if(ir2Value == LIGHT):
                 msg = String()                                          # Create a new String message
-                msg.data = LIGHT                                        # Assign text to msg.data
+                msg.data = 'LIGHT'                                        # Assign text to msg.data
                 self.publisher_.publish(msg)                            # Publish the message to the topic
                 self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging  
             elif(ir2Value == DARK):
                 msg = String()
-                msg.data = DARK                                     # Assign text to msg.data
+                msg.data = 'DARK'                                     # Assign text to msg.data
                 self.publisher_.publish(msg)                            # Publish the message to the topic
                 self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging    
             elif(ir2Value == INVALID):
@@ -68,7 +64,8 @@ class SensorNode(Node):   # Create a new class called MinimalPublisher that inhe
                 msg.data = str(ir1Value)
                 self.get_logger().info('Invalid input recieved, not publishing irvalue: "{msg.data}"')   # Log the published message for debugging 
         else:
-            self.get-logger().info('invalid parameter recieved')
+            self.get_logger().info('invalid parameter recieved')
+
 
         # ir1Value = get_ir_state(IR1_INPUT_PIN)
         # if(ir1Value == LIGHT):
